@@ -1,4 +1,5 @@
 from __future__ import annotations
+from copy import deepcopy
 from dataclasses import dataclass
 from functools import partial
 from random import uniform
@@ -50,7 +51,7 @@ class KMeans(Generic[Point]):
 
         for dimension in range(self._points[0].num_dimensions):
             dimension_slice: List[float] = self._dimension_slice(dimension)
-            for index, zscore in  enumerate(zscore(dimension_slice)):
+            for index, zscore in enumerate(zscore(dimension_slice)):
                 zscored[index].append(zscore)
         for i in range(len(self._points)):
             self._points[i].dimensions = tuple(zscored[i])
