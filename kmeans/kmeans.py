@@ -51,8 +51,8 @@ class KMeans(Generic[Point]):
 
         for dimension in range(self._points[0].num_dimensions):
             dimension_slice: List[float] = self._dimension_slice(dimension)
-            for index, zscore in enumerate(zscore(dimension_slice)):
-                zscored[index].append(zscore)
+            for index, ll in enumerate(zscore(dimension_slice)):
+                zscored[index].append(ll)
         for i in range(len(self._points)):
             self._points[i].dimensions = tuple(zscored[i])
 
@@ -86,7 +86,7 @@ class KMeans(Generic[Point]):
         for iteration in range(max_iterations):
             for cluster in self._clusters: # clear all clusters
                 cluster.points.clear()
-                self._assign_clusters() # find cluster each point is closest to
+                self._assing_clusters() # find cluster each point is closest to
                 old_centroids: List[DataPoint] = deepcopy(self._centroids) # record
                 self._generate_centroids() # find new centroids
                 if old_centroids == self._centroids: # have centroids moved?
@@ -99,6 +99,10 @@ if __name__ == "__main__":
     point1: DataPoint = DataPoint([2.0, 1.0, 1.0])
     point2: DataPoint = DataPoint([2.0, 2.0, 5.0])
     point3: DataPoint = DataPoint([3.0, 1.5, 2.5])
+
+    print( point1.dimensions)
+
+    
     kmeans_test: KMeans[DataPoint] = KMeans(2, [point1, point2, point3])
     test_clusters: List[KMeans.Cluster] = kmeans_test.run()
     for index, cluster in enumerate(test_clusters):

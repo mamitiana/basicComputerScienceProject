@@ -22,7 +22,7 @@ class DataPoint:
         if not isinstance(other , DataPoint):
             return NotImplemented
         return self.dimensions == other.dimensions
-    
+                                        
     def __repr__(self) -> str:
         return self._originals.__repr__()
 
